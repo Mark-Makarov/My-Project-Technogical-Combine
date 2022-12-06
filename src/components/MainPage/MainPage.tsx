@@ -15,7 +15,15 @@ function App() {
             <Link to='Hoverboard'>
                 <div className="card">
                     <button>
-                        Go to Hoverboard
+                        Go to Hoverboard(vanilla JS)
+                    </button>
+                </div>
+            </Link>
+
+            <Link to='ReduxElements'>
+                <div className="card">
+                    <button>
+                        Go to ReduxElements
                     </button>
                 </div>
             </Link>
