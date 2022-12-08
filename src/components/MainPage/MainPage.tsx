@@ -2,6 +2,7 @@ import reactLogo from '../../assets/react.svg'
 import './MainPage.css'
 import {Link} from "react-router-dom";
 
+
 function App() {
 
     return (
@@ -28,8 +29,32 @@ function App() {
                 </div>
             </Link>
 
+            <Link to='DrawingApp'>
+                <div className="card">
+                    <button>
+                        Go to DrawingApp(vanilla JS)
+                    </button>
+                </div>
+            </Link>
+
+            <Link to='HackerNews'>
+                <div className="card">
+                    <button>
+                        Go to HackerNews
+                    </button>
+                </div>
+            </Link>
+
+            <Link to='ToDoApp'>
+                <div className="card">
+                    <button>
+                        Go to ToDoApp
+                    </button>
+                </div>
+            </Link>
+
             <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
+                Hi
             </p>
         </div>
     )
