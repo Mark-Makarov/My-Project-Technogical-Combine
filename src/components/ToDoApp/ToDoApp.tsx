@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useAppSelector, useAppDispatch } from "../../Hooks/Hooks";
+import { toDoAppSlice } from "../../Store/slices/toDoAppSlice";
 
 interface Task {
     title: string;
@@ -7,36 +9,25 @@ interface Task {
 
 const ToDoApp = () => {
 
-    const [tasks, setTasks] = useState<Task[]>([
-        {title: 'Task 1', completed: false,},
-        {title: 'Task 2', completed: false,},
-        {title: 'Task 3', completed: false,},]);
-
+    const dispatch = useAppDispatch();
+    const toDoAppList = useAppSelector((state) => state.toDoAppList);
+    const tasks: Task[] = toDoAppList.tasks;
     const [newTaskTitle, setNewTaskTitle] = useState('');
 
     const handleAddTask = () => {
         if (newTaskTitle === '') {
             return;
         }
-
-        const newTask: Task = {
-            title: newTaskTitle,
-            completed: false,
-        };
-        setTasks([...tasks, newTask]);
+        dispatch(toDoAppSlice.actions.addTask({ title: newTaskTitle}));
         setNewTaskTitle('');
     };
 
     const handleCompleteTask = (index: number) => {
-        const updatedTasks = [...tasks];
-        updatedTasks[index].completed = true;
-        setTasks(updatedTasks);
+        dispatch(toDoAppSlice.actions.completeTask({ index }));
     };
 
     const handleRemoveTask = (index: number) => {
-        const updatedTasks = [...tasks];
-        updatedTasks.splice(index, 1);
-        setTasks(updatedTasks);
+        dispatch(toDoAppSlice.actions.removeTask({ index }))
     };
 
     return (

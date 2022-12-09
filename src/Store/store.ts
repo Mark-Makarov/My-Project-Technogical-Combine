@@ -1,9 +1,10 @@
 import counterReducer from './slices/counter';
+import toDoAppReducer from './slices/toDoAppSlice'
 import { configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = {
     counter: counterReducer,
-    counter1: counterReducer,
+    toDoAppList: toDoAppReducer,
 };
 
 export const store = configureStore({
