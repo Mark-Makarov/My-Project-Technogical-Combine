@@ -5,7 +5,6 @@ const ReduxElements = () => {
     const dispatch = useAppDispatch();
     const counter = useAppSelector((state) => state.counter);
 
-
     const incrementHandler = () => {
         dispatch(increment());
     };

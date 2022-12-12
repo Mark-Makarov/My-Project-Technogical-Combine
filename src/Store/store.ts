@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = {
     counter: counterReducer,
-    toDoAppList: toDoAppReducer,
+    toDoApp: toDoAppReducer,
 };
 
 export const store = configureStore({

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ReactEventHandler, ReactHTML, useState} from 'react';
 import { useAppSelector, useAppDispatch } from "../../Hooks/Hooks";
 import { toDoAppSlice } from "../../Store/slices/toDoAppSlice";
 
@@ -10,16 +10,19 @@ interface Task {
 const ToDoApp = () => {
 
     const dispatch = useAppDispatch();
-    const toDoAppList = useAppSelector((state) => state.toDoAppList);
-    const tasks: Task[] = toDoAppList.tasks;
+    const tasks: Task[] = useAppSelector((state) => state.toDoApp.tasks);
+
     const [newTaskTitle, setNewTaskTitle] = useState('');
+
+    const taskTitle = (e: React.ChangeEvent<HTMLInputElement>) =>{
+        setNewTaskTitle(e.target.value)
+    }
 
     const handleAddTask = () => {
         if (newTaskTitle === '') {
             return;
         }
         dispatch(toDoAppSlice.actions.addTask({ title: newTaskTitle}));
-        setNewTaskTitle('');
     };
 
     const handleCompleteTask = (index: number) => {
@@ -27,12 +30,13 @@ const ToDoApp = () => {
     };
 
     const handleRemoveTask = (index: number) => {
-        dispatch(toDoAppSlice.actions.removeTask({ index }))
+        dispatch(toDoAppSlice.actions.removeTask({index}))
     };
 
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <h1 style={{margin: 0}}>To Do List</h1>
+
             {tasks.map((task, index) => (
                 <div
                     key={index}
@@ -60,7 +64,9 @@ const ToDoApp = () => {
     >
       {task.title}
     </span>
-                        <button onClick={() => handleRemoveTask(index)}>Remove</button>
+                        <button onClick={() => {
+                            handleRemoveTask(index)
+                        }}>Remove</button>
                     </div>
                 </div>
             ))}
@@ -68,7 +74,7 @@ const ToDoApp = () => {
                 <input
                     type="text"
                     value={newTaskTitle}
-                    onChange={event => setNewTaskTitle(event.target.value)}
+                    onChange={event => taskTitle(event)}
                 />
                 <button onClick={handleAddTask}>Add Task</button>
             </div>
