@@ -29,14 +29,6 @@ function App() {
                 </div>
             </Link>
 
-            <Link to='DrawingApp'>
-                <div className="card">
-                    <button>
-                        Go to DrawingApp(vanilla JS)
-                    </button>
-                </div>
-            </Link>
-
             <Link to='HackerNews'>
                 <div className="card">
                     <button>
@@ -49,6 +41,22 @@ function App() {
                 <div className="card">
                     <button>
                         Go to ToDoApp
+                    </button>
+                </div>
+            </Link>
+
+            <Link to='Chat'>
+                <div className="card">
+                    <button>
+                        Go to Chat
+                    </button>
+                </div>
+            </Link>
+
+            <Link to='WsKraken'>
+                <div className="card">
+                    <button>
+                        Go to wsKraken
                     </button>
                 </div>
             </Link>

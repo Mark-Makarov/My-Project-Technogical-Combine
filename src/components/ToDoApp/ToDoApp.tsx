@@ -11,7 +11,7 @@ const ToDoApp = () => {
 
     const dispatch = useAppDispatch();
     const tasks: Task[] = useAppSelector((state) => state.toDoApp.tasks);
-
+console.log(tasks)
     const [newTaskTitle, setNewTaskTitle] = useState('');
 
     const taskTitle = (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -23,6 +23,7 @@ const ToDoApp = () => {
             return;
         }
         dispatch(toDoAppSlice.actions.addTask({ title: newTaskTitle}));
+        setNewTaskTitle('')
     };
 
     const handleCompleteTask = (index: number) => {

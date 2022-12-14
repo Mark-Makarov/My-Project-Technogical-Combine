@@ -1,10 +1,12 @@
 import counterReducer from './slices/counter';
 import toDoAppReducer from './slices/toDoAppSlice'
+import chatReducer from './slices/chatSlice'
 import { configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = {
     counter: counterReducer,
     toDoApp: toDoAppReducer,
+    chat: chatReducer,
 };
 
 export const store = configureStore({

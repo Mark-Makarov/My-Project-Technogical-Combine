@@ -1,13 +1,14 @@
 import {configureStore, createSlice} from "@reduxjs/toolkit";
 import {counterSlice} from "../Store/slices/counter";
 import {toDoAppSlice} from "../Store/slices/toDoAppSlice";
-
+import {chatSlice} from "../Store/slices/chatSlice";
 
 
 export const store = configureStore({
     reducer: {
         counter: counterSlice.reducer,
         toDoApp: toDoAppSlice.reducer,
+        chat: chatSlice.reducer,
     },
 })
 

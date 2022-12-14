@@ -3,10 +3,12 @@ import MainPage from "./components/MainPage/MainPage";
 import Hoverboard from "./components/HoverBoard/Hoverboard";
 import ReduxElements from "./components/ReduxElemets/ReduxElements";
 import HackerNews from "./components/HackerNews/HackerNews";
-import DrawingApp from "./components/DrawingApp/DrawingApp";
 import ToDoApp from "./components/ToDoApp/ToDoApp";
+import Chat from './components/Chat/Chat'
+import wsKraken from './components/WsKraken/WsKraken'
 import  { ThemeProvider } from "@mui/styles";
 import  { createTheme } from "@mui/material/styles";
+import WsKraken from "./components/WsKraken/WsKraken";
 
 
 function App() {
@@ -20,12 +22,13 @@ function App() {
                 <Route path='HoverBoard' element={<Hoverboard/>}/>
                 <Route path='ReduxElements' element={<ReduxElements/>}/>
                 <Route path='HackerNews' element={<HackerNews/>}/>
-                <Route path='DrawingApp' element={<DrawingApp/>}/>
                 <Route path='ToDoApp' element={<ToDoApp/>}/>
+                <Route path='Chat' element={<Chat/>}/>
+                <Route path='wsKraken' element={<WsKraken/>}/>
             </Routes>
         </ThemeProvider>
         </>
     )
 }
 
-export default App
+export default App;
