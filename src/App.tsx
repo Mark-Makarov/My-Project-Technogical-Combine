@@ -5,10 +5,9 @@ import ReduxElements from "./components/ReduxElemets/ReduxElements";
 import HackerNews from "./components/HackerNews/HackerNews";
 import ToDoApp from "./components/ToDoApp/ToDoApp";
 import Chat from './components/Chat/Chat'
-import wsKraken from './components/WsKraken/WsKraken'
+// import wsKraken from './components/WsKraken/WsKraken'
 import  { ThemeProvider } from "@mui/styles";
 import  { createTheme } from "@mui/material/styles";
-import WsKraken from "./components/WsKraken/WsKraken";
 
 
 function App() {
@@ -24,7 +23,7 @@ function App() {
                 <Route path='HackerNews' element={<HackerNews/>}/>
                 <Route path='ToDoApp' element={<ToDoApp/>}/>
                 <Route path='Chat' element={<Chat/>}/>
-                <Route path='wsKraken' element={<WsKraken/>}/>
+                {/*<Route path='wsKraken' element={<WsKraken/>}/>*/}
             </Routes>
         </ThemeProvider>
         </>

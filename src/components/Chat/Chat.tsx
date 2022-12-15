@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
-
-
 import firebase from "firebase/compat";
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
-
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import './Chat.css'
+import {TextareaAutosize} from "@mui/material";
+
 
 firebase.initializeApp({
     apiKey: "AIzaSyBlQWA4kC96rY3uYJuIVo4KALvZqIp6cuc",
@@ -19,7 +19,7 @@ firebase.initializeApp({
     measurementId: "G-03MGTHL5X1"
 })
 
-const auth = firebase.auth();
+const auth: firebase.auth.Auth = firebase.auth();
 const firestore = firebase.firestore();
 
 interface ChatMessage {
@@ -32,12 +32,12 @@ interface ChatMessage {
 
 const Chat: React.FC = () => {
 
+    // @ts-ignore
     const [user] = useAuthState(auth);
 
     return (
         <div className="App">
             <header>
-                <h1>⚛️🔥💬</h1>
                 <SignOut />
             </header>
 
@@ -49,11 +49,10 @@ const Chat: React.FC = () => {
     );
 }
 
-function SignIn() {
-
+const SignIn: React.FC = () => {
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
+        auth.signInWithPopup(provider).then(r => '');
     }
 
     return (
@@ -64,26 +63,31 @@ function SignIn() {
 
 }
 
-function SignOut() {
+const SignOut: React.FC = () => {
     return auth.currentUser && (
         <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
     )
 }
 
 
-function ChatRoom() {
-    const dummy = useRef();
-    const messagesRef = firestore.collection('messages');
+const ChatRoom: React.FC = () => {
+    const dummy = useRef<HTMLSpanElement>(null);
+
+    // @ts-ignore
+    const messagesRef = firestore.collection<ChatMessage>('messages');
     const query = messagesRef.orderBy('createdAt').limit(25);
 
-    const [messages] = useCollectionData(query, { idField: 'id' });
+    // @ts-ignore
+    const [messages] = useCollectionData<ChatMessage>(query, { idField: 'id' });
 
     const [formValue, setFormValue] = useState('');
 
 
-    const sendMessage = async (e) => {
+    const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+
+        // @ts-ignore
         const { uid, photoURL } = auth.currentUser;
 
         await messagesRef.add({
@@ -94,8 +98,11 @@ function ChatRoom() {
         })
 
         setFormValue('');
+        // @ts-ignore
         dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
+
+
 
     return (<>
         <main>
@@ -108,7 +115,8 @@ function ChatRoom() {
 
         <form onSubmit={sendMessage}>
 
-            <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
+            <input value={formValue} onChange={(e) => setFormValue(e.target.value)}
+                   placeholder="Введите сообщение" />
 
             <button type="submit" disabled={!formValue}>🕊️</button>
 
@@ -116,18 +124,27 @@ function ChatRoom() {
     </>)
 }
 
+interface ChatMessage {
+    message: {
+        text: string,
+        uid: string,
+        photoURL: string,
+    }
+}
 
-function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
+const ChatMessage: React.FC<{ message: ChatMessage }> = ({ message }) => {
 
-    const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-
-    return (<>
-        <div className={`message ${messageClass}`}>
-
-            <p>{text}</p>
+    return (
+        <div className="sent p message">
+            <img src={message.photoURL} alt="" className="message-photo" />
+            <div>
+                <div className="message-header">
+                    <p>{message.createdAt.toDate().toString().slice(0,25)} <br/>
+                        {message.text}</p>
+                </div>
+            </div>
         </div>
-    </>)
+    );
 }
 
 
