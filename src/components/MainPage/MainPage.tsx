@@ -7,11 +7,11 @@ function App() {
 
     return (
         <div className="App">
-            <div>
-                <img src="/public/vite.svg" className="logo" alt="Vite logo" />
-                <img src={reactLogo} className="logo react" alt="React logo" />
-            </div>
-            <h1>Vite + React</h1>
+            {/*<div>*/}
+            {/*    <img src="/public/vite.svg" className="logo" alt="Vite logo" />*/}
+            {/*    <img src={reactLogo} className="logo react" alt="React logo" />*/}
+            {/*</div>*/}
+            {/*<h1>Vite + React</h1>*/}
 
             <Link to='Hoverboard'>
                 <div className="card">
@@ -61,9 +61,14 @@ function App() {
                 </div>
             </Link>
 
-            <p className="read-the-docs">
-                Hi
-            </p>
+            <Link to='CryptoBoard'>
+                <div className="card">
+                    <button>
+                        Go to Crypto Board
+                    </button>
+                </div>
+            </Link>
+
         </div>
     )
 }

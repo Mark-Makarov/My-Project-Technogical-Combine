@@ -8,6 +8,7 @@ import Chat from './components/Chat/Chat'
 // import wsKraken from './components/WsKraken/WsKraken'
 import  { ThemeProvider } from "@mui/styles";
 import  { createTheme } from "@mui/material/styles";
+import CryptoBoard from "./components/CryptoBoard/CryptoBoard";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path='HackerNews' element={<HackerNews/>}/>
                 <Route path='ToDoApp' element={<ToDoApp/>}/>
                 <Route path='Chat' element={<Chat/>}/>
+                <Route path='CryptoBoard' element={<CryptoBoard/>}/>
                 {/*<Route path='wsKraken' element={<WsKraken/>}/>*/}
             </Routes>
         </ThemeProvider>

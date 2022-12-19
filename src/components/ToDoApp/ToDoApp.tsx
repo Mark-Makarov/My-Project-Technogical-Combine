@@ -35,7 +35,7 @@ console.log(tasks)
     };
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <h1 style={{margin: 0}}>To Do List</h1>
 
             {tasks.map((task, index) => (
