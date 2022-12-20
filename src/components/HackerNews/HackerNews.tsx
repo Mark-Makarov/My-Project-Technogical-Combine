@@ -1,15 +1,16 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState, Ref} from "react";
 import axios from 'axios';
 
 interface Data {
         id: number,
         title: string,
-        body: string
+        body: string,
     }
 
 
 function HackerNews() {
 
+    const block: Ref<HTMLDivElement> = useRef({})
     const [data, setData] = useState<Array<Data>| null>(null)
 
     useEffect(()=>{
@@ -19,10 +20,15 @@ function HackerNews() {
         });
     },[])
 
-    setTimeout(() => {console.log(data)}, 1000)
+    console.log(data)
+
+    function show(id) {
+    console.log(block.current[id].innerText)
+    }
 
     return(
-        <div>{data ? data.map(item => <div key={item.id}>{item.title}</div>)
+        <div>{data ? data.map(item => <div key={item.id} onMouseEnter={() => show(item.id)}
+                                           ref={el => block.current[item.id] = el}>{item.title}</div>)
             : <p>...loading</p>}</div>
     )
 }

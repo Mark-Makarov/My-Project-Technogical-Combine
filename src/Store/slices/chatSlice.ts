@@ -2,27 +2,29 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
 interface ChatSlice {
-    message: string;
+    messages: {
+        uid: string,
+        createdAt: string,
+        text: string,
+        photoURL: string,
+    }[],
 }
 
 const initialState: ChatSlice = {
-    message: 'hi'
+    messages: [],
 };
 
 export const chatSlice = createSlice({
     name: 'Chat',
     initialState,
     reducers: {
-        sendMessage: (state) => {
-            console.log('Message has been send')
+        getMessages: (state, action) => {
+            state.messages = action.payload
         },
-        receiveMessage: (state) => {
-            console.log('Message has been received')
-        }
     },
 });
 
-export const { sendMessage, receiveMessage } = chatSlice.actions;
+export const { getMessages } = chatSlice.actions;
 
 export const selectChat = (state: RootState) => state.chat;
 

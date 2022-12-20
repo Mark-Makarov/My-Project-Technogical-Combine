@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import firebase from "firebase/compat";
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -6,7 +6,8 @@ import 'firebase/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import './Chat.css'
-import {TextareaAutosize} from "@mui/material";
+import {useAppDispatch} from "../../Hooks/Hooks";
+import {chatSlice} from "../../Store/slices/chatSlice";
 
 
 firebase.initializeApp({
@@ -82,7 +83,6 @@ const ChatRoom: React.FC = () => {
 
     const [formValue, setFormValue] = useState('');
 
-
     const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -102,9 +102,24 @@ const ChatRoom: React.FC = () => {
         dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
 
+    let dispatch = useAppDispatch();
+    useEffect(()=>{
+        if (messages != undefined) {
+            dispatch(
+                chatSlice.actions.getMessages(
+                    messages
+                        .filter(message => message.createdAt)
+                        .map(message => ({
+                            ...message,
+                            createdAt: message.createdAt.toDate().toString().slice(0, 24)
+                        }))
+                )
+            );
+        }
+    },[[messages]]);
 
-
-    return (<>
+    return (
+        <>
         <main>
 
             {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
@@ -132,19 +147,25 @@ interface ChatMessage {
     }
 }
 
+
+
 const ChatMessage: React.FC<{ message: ChatMessage }> = ({ message }) => {
 
-    return (
-        <div className="sent p message">
-            <img src={message.photoURL} alt="" className="message-photo" />
-            <div>
-                <div className="message-header">
-                    <p>{message.createdAt.toDate().toString().slice(0,25)} <br/>
-                        {message.text}</p>
+    const date = message.createdAt
+        ? message.createdAt.toDate().toString().slice(0, 24)
+        : [];
+
+    return(
+            <div className="sent p message">
+                <img src={message.photoURL} alt="" className="message-photo"/>
+                <div>
+                    <div className="message-header">
+                        <p>{date} <br/>
+                            {message.text}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+       )
 }
 
 
